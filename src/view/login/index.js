@@ -4,18 +4,24 @@ import "./login.css";
 
 // import firebase 
 import firebase from '../../config/firebase'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
-  const auth = getAuth()
   // value, and the function that update this value
   // pretty similar to model i guess at this point
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  
+  // teste@mail.com 123456
   function logar() {
-    console.log(auth)
-    console.log(firebase)
+    const auth = getAuth()
+    signInWithEmailAndPassword(auth, email, password).then(userCredential => {
+      const user = userCredential.user
+    }).catch(err => {
+
+      const errorCode = err.code
+      const errorMessage = err.message
+    })
   }
 
   return (
