@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 // useState(react hook) save the state of the elements components
 import "./login.css";
-
 // import firebase 
 import firebase from '../../config/firebase'
+// import auth and method verification to sign in from firebase
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
@@ -11,16 +11,22 @@ function Login() {
   // pretty similar to model i guess at this point
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  // Control return autentication from firebase
+  const [msgType, setMsgType] = useState()
   
   // teste@mail.com 123456
   function logar() {
     const auth = getAuth()
     signInWithEmailAndPassword(auth, email, password).then(userCredential => {
       const user = userCredential.user
+      setMsgType('success')
     }).catch(err => {
-
+      
       const errorCode = err.code
       const errorMessage = err.message
+      setMsgType('error')
+      console.error(errorCode)
+      console.error(errorMessage)
     })
   }
 
@@ -61,15 +67,21 @@ function Login() {
           Sign in
         </button>
         <div className="msg-login text-white text-center my-5">
-          <span>
+          { //Similar to v-if and ng-if the operaor && is simliar to "so you can render this..."
+            // if login return success
+            msgType === 'success' &&
+            <span>
             <strong>Wow!</strong>
             You are now connected &#128526;
-          </span>
-          <br />
+          </span>}
+          {
+            // if login returns a error
+          msgType === 'error' &&
           <span>
             <strong>Ops!</strong>
             Please check your info &#128546;
           </span>
+          }
         </div>
 
         <div className="opcoes-login text-center mt-5">
