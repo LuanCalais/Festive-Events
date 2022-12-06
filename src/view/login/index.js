@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 // useState(react hook) save the state of the elements components
 import "./login.css";
-// import firebase 
-import firebase from '../../config/firebase'
+// import firebase
+import firebase from "../../config/firebase";
 // import auth and method verification to sign in from firebase
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+// Import link to make the route navigation
+import { Link } from "react-router-dom";
 
 function Login() {
   // value, and the function that update this value
@@ -12,22 +15,23 @@ function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   // Control return autentication from firebase
-  const [msgType, setMsgType] = useState()
-  
+  const [msgType, setMsgType] = useState();
+
   // teste@mail.com 123456
   function logar() {
-    const auth = getAuth()
-    signInWithEmailAndPassword(auth, email, password).then(userCredential => {
-      const user = userCredential.user
-      setMsgType('success')
-    }).catch(err => {
-      
-      const errorCode = err.code
-      const errorMessage = err.message
-      setMsgType('error')
-      console.error(errorCode)
-      console.error(errorMessage)
-    })
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setMsgType("success");
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        const errorMessage = err.message;
+        setMsgType("error");
+        console.error(errorCode);
+        console.error(errorMessage);
+      });
   }
 
   return (
@@ -40,7 +44,6 @@ function Login() {
             Login
           </h1>
         </div>
-
 
         {/* onChange={(e) => setEmail(e.target.value)} similiar to model, change value in real time */}
         <input
@@ -67,20 +70,24 @@ function Login() {
           Sign in
         </button>
         <div className="msg-login text-white text-center my-5">
-          { //Similar to v-if and ng-if the operaor && is simliar to "so you can render this..."
+          {
+            //Similar to v-if and ng-if the operaor && is simliar to "so you can render this..."
             // if login return success
-            msgType === 'success' &&
-            <span>
-            <strong>Wow!</strong>
-            You are now connected &#128526;
-          </span>}
+            msgType === "success" && (
+              <span>
+                <strong>Wow!</strong>
+                You are now connected &#128526;
+              </span>
+            )
+          }
           {
             // if login returns a error
-          msgType === 'error' &&
-          <span>
-            <strong>Ops!</strong>
-            Please check your info &#128546;
-          </span>
+            msgType === "error" && (
+              <span>
+                <strong>Ops!</strong>
+                Please check your info &#128546;
+              </span>
+            )
           }
         </div>
 
@@ -89,9 +96,9 @@ function Login() {
             Forget your password?
           </a>
           <span className="text-white">&#9773;</span>
-          <a href="#" className="mx-2">
+          <Link to="new-user" className="mx-2">
             Sing Up
-          </a>
+          </Link>
         </div>
       </form>
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import firebase from "../../config/firebase";
 // import auth and method verification to sign in from firebase
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { Link } from "react-router-dom";
 import "./new-user.css";
 
 function NewUser() {
@@ -92,6 +92,12 @@ function NewUser() {
           )}
         </div>
       </form>
+
+      <div className="text-center mt-5">
+        <Link to="/" className="mx-2 text-dark login-btn">
+          Login
+        </Link>
+      </div>
     </div>
   );
 }
