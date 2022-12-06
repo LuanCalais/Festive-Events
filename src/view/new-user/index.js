@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import firebase from "../../config/firebase";
 // import auth and method verification to sign in from firebase
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import "./new-user.css";
 
@@ -10,13 +10,37 @@ function NewUser() {
   const [password, setPassword] = useState();
   const [msgType, setMessageType] = useState();
   const [msg, setMsg] = useState();
+  const [loading, setLoading] = useState();
 
-  function signUp(){
+  function signUp() {
+    setLoading(true);
+    const auth = getAuth();
     // Set in null to clean the messages
-    setMessageType(null)
+    setMessageType(null);
 
-    // TODO: Sing up with firebase
+    // if user dont enter with email or password
+    if (!email || !password) {
+      setMessageType("error");
+      setMsg("E-mail or Password is empty");
+      setLoading(false);
+      return;
+    }
 
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setMessageType("success");
+        setMsg("You are now registred");
+        setLoading(false);
+      })
+      .catch((err) => {
+        setMessageType("error");
+        setMsg(err.message);
+        const errorCode = err.code;
+        const errorMessage = err.message;
+        console.error(errorCode);
+        console.error(errorMessage);
+        setLoading(false);
+      });
   }
 
   return (
@@ -38,27 +62,35 @@ function NewUser() {
           placeholder="Password"
         />
 
-        <div className="text-center">
+        {/* ternary if to show loading */}
+        {loading ? (
+          <div class="spinner-border text-danger mt-3" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        ) : (
+          <button
+            onClick={signUp}
+            type="button"
+            className="btn btn-lg btn-block mt-3 mb-3 btn-sign-up"
+          >
+            Sign Up
+          </button>
+        )}
+
+        <div className="text-center text-black">
           {msgType === "success" && (
             <span>
-              <strong>Wow!</strong> You are new connected
+              <strong>Wow!</strong> {msg}
             </span>
           )}
 
           {msgType === "error" && (
             <span>
               <strong>Ops! </strong>
-              Please check your info
+              {msg}
             </span>
           )}
         </div>
-
-        <button
-          type="button"
-          className="btn btn-lg btn-block mt-3 mb-3 btn-sign-up"
-        >
-          Sign Up
-        </button>
       </form>
     </div>
   );
