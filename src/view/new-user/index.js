@@ -5,6 +5,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import "./new-user.css";
 
+import Navbar from "../../components/navbar";
+
 function NewUser() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -44,61 +46,59 @@ function NewUser() {
   }
 
   return (
-    <div className="sign-up-form">
-      <form className="text-center form-login mx-auto mt-5">
-        <h1 className="h3 mb-3 text-black font-weight-bold">Sign Up</h1>
+    <>
+      <Navbar />
 
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          className="form-control my-2"
-          placeholder="E-mail"
-        />
+      <div className="sign-up-form">
+        <form className="text-center form-login mx-auto mt-5">
+          <h1 className="h3 mb-3 text-black font-weight-bold">Sign Up</h1>
 
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control my-2"
-          placeholder="Password"
-        />
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            className="form-control my-2"
+            placeholder="E-mail"
+          />
 
-        {/* ternary if to show loading */}
-        {loading ? (
-          <div class="spinner-border text-danger mt-3" role="status">
-            <span class="sr-only">Loading...</span>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            className="form-control my-2"
+            placeholder="Password"
+          />
+
+          {/* ternary if to show loading */}
+          {loading ? (
+            <div class="spinner-border text-danger mt-3" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : (
+            <button
+              onClick={signUp}
+              type="button"
+              className="btn btn-lg btn-block mt-3 mb-3 btn-sign-up"
+            >
+              Sign Up
+            </button>
+          )}
+
+          <div className="text-center text-black">
+            {msgType === "success" && (
+              <span>
+                <strong>Wow!</strong> {msg}
+              </span>
+            )}
+
+            {msgType === "error" && (
+              <span>
+                <strong>Ops! </strong>
+                {msg}
+              </span>
+            )}
           </div>
-        ) : (
-          <button
-            onClick={signUp}
-            type="button"
-            className="btn btn-lg btn-block mt-3 mb-3 btn-sign-up"
-          >
-            Sign Up
-          </button>
-        )}
-
-        <div className="text-center text-black">
-          {msgType === "success" && (
-            <span>
-              <strong>Wow!</strong> {msg}
-            </span>
-          )}
-
-          {msgType === "error" && (
-            <span>
-              <strong>Ops! </strong>
-              {msg}
-            </span>
-          )}
-        </div>
-      </form>
-
-      <div className="text-center mt-5">
-        <Link to="/" className="mx-2 text-dark login-btn">
-          Login
-        </Link>
+        </form>
       </div>
-    </div>
+    </>
   );
 }
 

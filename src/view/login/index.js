@@ -6,8 +6,7 @@ import firebase from "../../config/firebase";
 // import auth and method verification to sign in from firebase
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-// Import link to make the route navigation
-import { Link } from "react-router-dom";
+import Navbar from "../../components/navbar";
 
 function Login() {
   // value, and the function that update this value
@@ -35,8 +34,11 @@ function Login() {
   }
 
   return (
-    // This code is not html, this is JSX, here we use to write html in js
-    // className used in JSX
+    // When we render another component react return a error 
+    // because this file is about a only one element
+    // so, to avoid this we can open a tab <> and close </> in all component and anothers we want 
+    <>
+    <Navbar/>
     <div className="login-content d-flex align-items-center">
       <form className="form-signin mx-auto">
         <div className="text-center mb-4">
@@ -96,12 +98,10 @@ function Login() {
             Forget your password?
           </a>
           <span className="text-white">&#9773;</span>
-          <Link to="new-user" className="mx-2">
-            Sing Up
-          </Link>
         </div>
       </form>
     </div>
+    </>
   );
 }
 
