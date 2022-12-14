@@ -25,7 +25,7 @@ function Login() {
   const dispatch = useDispatch();
 
   // teste@mail.com 123456
-  function logar() {
+  function logIn() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -88,7 +88,7 @@ function Login() {
           />
 
           <button
-            onClick={logar}
+            onClick={logIn}
             className="btn btn-lg btn-block btn-login"
             type="button"
           >
