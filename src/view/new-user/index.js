@@ -69,8 +69,8 @@ function NewUser() {
 
           {/* ternary if to show loading */}
           {loading ? (
-            <div class="spinner-border text-danger mt-3" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border text-danger mt-3" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           ) : (
             <button
