@@ -9,7 +9,8 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg">
-      <span className="navbar-brand text-white">Events</span>
+            <i class="far fa-smile-wink text-white fa-2x mr-2"></i>
+      {/* <span className="navbar-brand text-white">Events</span> */}
       <button
         className="navbar-toggler"
         type="button"
@@ -45,7 +46,7 @@ function Navbar() {
           ) : (
             <>
               <li className="nav-item active">
-                <Link className="nav-link" to="">
+                <Link className="nav-link" to={"/createEvent"}>
                   Publish Event
                 </Link>
               </li>

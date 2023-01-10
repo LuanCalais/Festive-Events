@@ -65,6 +65,7 @@ function Login() {
 
         <form className="form-signin mx-auto">
           <div className="text-center mb-4">
+            <i class="far fa-smile-wink text-white fa-5x mb-2"></i>
             <h1 className="h3 mb-3 font-weight-normal text-white font-weight-bold">
               Login
             </h1>
@@ -117,9 +118,9 @@ function Login() {
           </div>
 
           <div className="opcoes-login text-center mt-5">
-            <a href="#" className="mx-2">
+            <Link to="/recover" className="mx-2">
               Forget your password?
-            </a>
+            </Link>
             <span className="text-white">&#9773;</span>
           </div>
         </form>
